@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace DOAdminAFIP.Extensions
 {
@@ -10,7 +9,6 @@ namespace DOAdminAFIP.Extensions
     {
         public static IEnumerable<string> SplitBy(this string auxs, params char[] separators)
             => auxs.Split(separators);
-
 
         public static IEnumerable<string> SplitBy(this string auxs, params string[] separators)
             => auxs.Split(separators, StringSplitOptions.None);

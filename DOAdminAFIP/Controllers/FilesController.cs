@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.IO;
-using System.Linq;
+﻿using System.IO;
 using System.Threading.Tasks;
 using DOAdminAFIP.Core;
 using DOAdminAFIP.Extensions;
@@ -13,8 +11,6 @@ namespace DOAdminAFIP.Controllers
     [ApiController]
     public class FilesController : ControllerBase
     {
-        string Nombre_Excel(string s) => $"Ventas Generadas_{s}.xls";
-
         #region Services
 
         IMemoryCache cache;
@@ -40,7 +36,7 @@ namespace DOAdminAFIP.Controllers
         {
             var content = await file.ReadAsStringAsync();
 
-            var generated = afipParser.GenerateWorkBook(content, Nombre_Excel(file.FileName));
+            var generated = afipParser.GenerateWorkBook(content, $"Ventas Generadas_{file.FileName}.xls");
             
             cache.Set(generated.Nombre, generated);
 

@@ -2,9 +2,7 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using System.Threading.Tasks;
 using DOAdminAFIP.Extensions;
-using Microsoft.AspNetCore.Http;
 using NPOI.HSSF.UserModel;
 
 namespace DOAdminAFIP.Core
