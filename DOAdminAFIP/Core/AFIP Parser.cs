@@ -64,7 +64,9 @@ namespace DOAdminAFIP.Core
 
             var matrix = new List<string[]>() { AFIPDTO.Nombres };
 
-            matrix.AddRange(models.ToMatrix(m => m.DTO.Rows));
+            var dtos = models.Select(m => m.DTO);
+
+            matrix.AddRange(dtos.Select(d => d.Rows));
 
             var workbook = Utils.GenerateWorkbook(matrix);
 
@@ -73,7 +75,7 @@ namespace DOAdminAFIP.Core
                 Nombre = nombre_workbook,
                 Workbook = workbook,
                 IsValidated = models.All(m => m.IsValidated),
-                MontoFinal = models.Select(d => d.DTO.MontoFactura).Sum()
+                MontoFinal = dtos.Select(d => d.MontoFactura).Sum()
             };
         }
 

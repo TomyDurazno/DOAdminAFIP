@@ -1,11 +1,8 @@
-﻿using DOAdminAFIP.Extensions;
-using NPOI.HSSF.UserModel;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using NPOI.HSSF.UserModel;
+using DOAdminAFIP.Extensions;
 
 namespace DOAdminAFIP
 {
@@ -49,9 +46,7 @@ namespace DOAdminAFIP
         {
             var arr = s.ToCharArray();
             return (arr.Take(index).Concat(), arr.Skip(index).Concat());
-        }
-
-        public static string DesktopPath(string path) => $"{Environment.GetFolderPath(Environment.SpecialFolder.Desktop)}/{path}";
+        }        
 
         #endregion
     }
