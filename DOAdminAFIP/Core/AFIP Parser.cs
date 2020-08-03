@@ -7,7 +7,7 @@ using NPOI.HSSF.UserModel;
 
 namespace DOAdminAFIP.Core
 {
-    public class AFIPParser : IFormFileParser
+    public class AFIPParser : IRawInputParser
     {
         #region ToAFIPModel
 

@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace DOAdminAFIP.Core
 {
-    public interface IFormFileParser
+    public interface IRawInputParser
     {
         WorkBookGenerationResult GenerateWorkBook(string content, string nombre_workbook);
     }

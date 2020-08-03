@@ -14,13 +14,13 @@ namespace DOAdminAFIP.Controllers
         #region Services
 
         IMemoryCache cache;
-        IFormFileParser afipParser;
+        IRawInputParser afipParser;
 
         #endregion
 
         #region Constructor
 
-        public FilesController(IMemoryCache _cache, IFormFileParser _afipParser)
+        public FilesController(IMemoryCache _cache, IRawInputParser _afipParser)
         {
             cache = _cache;
             afipParser = _afipParser;

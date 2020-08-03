@@ -29,7 +29,7 @@ namespace DOAdminAFIP
             services.AddControllersWithViews();
             services.AddMemoryCache();
             services.AddSingleton<IFileProvider>(new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot")));
-            services.AddScoped<IFormFileParser, AFIPParser>();
+            services.AddScoped<IRawInputParser, AFIPParser>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
