@@ -35,7 +35,7 @@ namespace DOAdminAFIP.Core
 
                 (model.CodigoDocumento, acum) = Utils.Split(acum, 2);
 
-                (model.DataAleatoria, acum) = Utils.Split(acum, 50);
+                (model.CUIT, acum) = Utils.Split(acum, 50);
 
                 (model.MontoFactura, acum) = Utils.Split(acum, 15);
 
@@ -117,7 +117,7 @@ namespace DOAdminAFIP.Core
             if (int.TryParse(CodigoDocumento, out int codigoDocumento))
                 dto.CodigoDocumento = codigoDocumento;
 
-            dto.DataAleatoria = DataAleatoria;
+            dto.CUIT = CUITDTO.Parse(CUIT);
 
             var size = MontoFactura.Count();
 
@@ -168,7 +168,7 @@ namespace DOAdminAFIP.Core
 
         public string CodigoDocumento { get; set; }
 
-        public string DataAleatoria { get; set; }
+        public string CUIT { get; set; }
 
         public string MontoFactura { get; set; }
 
@@ -191,7 +191,7 @@ namespace DOAdminAFIP.Core
 
         public int? CodigoDocumento { get; set; }
 
-        public string DataAleatoria { get; set; }
+        public CUITDTO CUIT { get; set; }
 
         public decimal? MontoFactura { get; set; }
 
@@ -205,7 +205,7 @@ namespace DOAdminAFIP.Core
         NumeroComprobanteDesde.ToString(),
         NumeroComprobanteHasta.ToString(),
         CodigoDocumento.ToString(),
-        DataAleatoria.ToString(),
+        CUIT.ToString(),
         MontoFactura.ToString(),
         DataAleatoria2.ToString()
         };
@@ -218,10 +218,53 @@ namespace DOAdminAFIP.Core
         "NumeroComprobanteDesde",
         "NumeroComprobanteHasta",
         "CodigoDocumento",
-        "DataAleatoria",
+        "CUIT",
         "MontoFactura",
         "DataAleatoria2"
         };
+    }
+
+    public class CUITDTO
+    {
+        public int? Prefix { get; set; }
+        public int? Suffix { get; set; }
+
+        public int? NumeroDocumento { get; set; }
+        public string NombreyApellido { get; set; }
+
+        public bool HasValues() => Prefix.HasValue && NumeroDocumento.HasValue && Suffix.HasValue;
+
+        public static CUITDTO Parse(string rawCuit)
+        {
+            var cuit = rawCuit.SkipWhile(s => s == '0').Concat();
+
+            (string prefix, string acum) = Utils.Split(cuit, 2);
+
+            var numDoc = string.Empty;
+
+            (numDoc, acum) = Utils.Split(acum, 8);
+
+            var suffix = string.Empty;
+
+            (suffix, acum) = Utils.Split(acum, 1);
+
+            var dto = new CUITDTO();
+
+            if (int.TryParse(prefix, out int pre))
+                dto.Prefix = pre;
+
+            if (int.TryParse(numDoc, out int num))
+                dto.NumeroDocumento = num;
+
+            if (int.TryParse(suffix, out int suf))
+                dto.Suffix = suf;
+
+            dto.NombreyApellido = acum.Trim();
+
+            return dto;
+        }
+
+        public override string ToString() => HasValues() ? $"{Prefix}-{NumeroDocumento}-{Suffix} {NombreyApellido}" : string.Empty;
     }
 
     public class WorkBookGenerationResult
