@@ -35,7 +35,9 @@ namespace DOAdminAFIP.Core
 
                 (model.CodigoDocumento, acum) = Utils.Split(acum, 2);
 
-                (model.CUIT, acum) = Utils.Split(acum, 50);
+                (model.CUIT, acum) = Utils.Split(acum, 20);
+
+                (model.RazonSocial, acum) = Utils.Split(acum, 30);
 
                 (model.MontoFactura, acum) = Utils.Split(acum, 15);
 
@@ -119,6 +121,8 @@ namespace DOAdminAFIP.Core
 
             dto.CUIT = CUITDTO.Parse(CUIT);
 
+            dto.RazonSocial = RazonSocial;
+
             var size = MontoFactura.Count();
 
             (string monto, string monedas) = Utils.Split(MontoFactura, size - 2);
@@ -170,6 +174,8 @@ namespace DOAdminAFIP.Core
 
         public string CUIT { get; set; }
 
+        public string RazonSocial { get; set; }
+
         public string MontoFactura { get; set; }
 
         public string DataAleatoria2 { get; set; }
@@ -193,6 +199,8 @@ namespace DOAdminAFIP.Core
 
         public CUITDTO CUIT { get; set; }
 
+        public string RazonSocial { get; set; }
+
         public decimal? MontoFactura { get; set; }
 
         public string DataAleatoria2 { get; set; }
@@ -206,6 +214,7 @@ namespace DOAdminAFIP.Core
         NumeroComprobanteHasta.ToString(),
         CodigoDocumento.ToString(),
         CUIT.ToString(),
+        RazonSocial.Trim(),
         MontoFactura.ToString(),
         DataAleatoria2.ToString()
         };
@@ -219,6 +228,7 @@ namespace DOAdminAFIP.Core
         "NumeroComprobanteHasta",
         "CodigoDocumento",
         "CUIT",
+        "RazonSocial",
         "MontoFactura",
         "DataAleatoria2"
         };
@@ -230,7 +240,6 @@ namespace DOAdminAFIP.Core
         public int? Suffix { get; set; }
 
         public int? NumeroDocumento { get; set; }
-        public string NombreyApellido { get; set; }
 
         public bool HasValues() => Prefix.HasValue && NumeroDocumento.HasValue && Suffix.HasValue;
 
@@ -259,12 +268,10 @@ namespace DOAdminAFIP.Core
             if (int.TryParse(suffix, out int suf))
                 dto.Suffix = suf;
 
-            dto.NombreyApellido = acum.Trim();
-
             return dto;
         }
 
-        public override string ToString() => HasValues() ? $"{Prefix}-{NumeroDocumento}-{Suffix} {NombreyApellido}" : string.Empty;
+        public override string ToString() => HasValues() ? $"{Prefix}-{NumeroDocumento}-{Suffix}" : string.Empty;
     }
 
     public class WorkBookGenerationResult
